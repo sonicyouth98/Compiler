@@ -9,7 +9,7 @@ struct Position {
     uint32_t begin = 1;
     uint32_t end = 1;
 
-    Position() {
+    Position(const Position& other) {
 
     }
 
