@@ -29,7 +29,7 @@ public:
 bool operator==(const std::shared_ptr<Type>& ls, const std::shared_ptr<Type>& rs);
 
 
-class SimleType : public Type {
+class SimpleType : public Type {
     std::vector<std::shared_ptr<Type>> upperTypes;
 public:
     bool hasVoid() override;
@@ -45,5 +45,34 @@ public:
     bool isSimpleType() override {
         return true;
     }
+};
+
+class SysType : public Type {
+//this is all types father;
+public:
+    static std::shared_ptr<Type> Any() {
+        static std::shared_ptr<Type> type = std::make_shared<SimpleType>("any");
+        return type;
+    }
+//this is some basic type
+    static std::shared_ptr<Type> String() {
+        auto any = Any();
+        std::vector<std::shared_ptr<Type>> vec{any};
+        static std::shared_ptr<Type> type = std::make_shared<SimpleType>("string", vec);
+        return type;
+    }
+
+
+    static bool isSysType(const std::shared_ptr<Type>& t) {
+        return true;
+    }
+};
+
+class FunctionType : public Type {
+public:
+    std::shared_ptr<Type> returnType;
+    std::vector<std::shared_ptr<Type>> paramTypes;
+    static int32_t index;//this is use name function Type;
+    
 };
 #endif
