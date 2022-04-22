@@ -7,7 +7,8 @@
 #include <unordered_map>
 #include <list>
 
-enum class TokenKind {};
+enum class TokenKind {KeyWord, Identifier, StringLiteral, IntegerLiteral, DeceimalLiteral,
+Seperator, Operator, Eof};
 
 //sperator
 
@@ -33,8 +34,8 @@ struct Token {
     TokenKind kind;
     std::string text;
     Position pos;
-    std::any code;
-
+    std::any code;//this is code container op Seperator keyword
+    Token(TokenKind kind, const std::string& text, const Position& pos, std::any code = std::any()) {}
 };
 
 class CharStream {
@@ -71,6 +72,7 @@ public:
     }
 };
 class Scanner {
+private:
     std::list<Token> token;
     CharStream& stream;
 
@@ -79,5 +81,63 @@ public:
 
     Token next() {
         
+    }
+
+private:
+    Token getToken() {
+        this->skipWhiteSpaces();
+        //this position
+        auto pos = this->stream.getPos();
+        if (this->stream.eof()) {
+            return Token(TokenKind::Eof, "Eof", pos);
+        } else {
+            auto ch = this->stream.peak();
+            if (this->isLetter(ch) || ch == '_') {
+
+            } else if(ch == '"') {
+
+            } else if (ch == '(') {
+                this->stream.next();
+                //return operator
+                //return Token()
+            } else if (ch == ')') {
+                this->stream.next();
+            } else if (ch == '{') {
+                this->stream.next();
+            } 
+        }
+    }
+    void skipSingleLineComment() {
+
+    }
+
+    void skipMultipleLineComments() {
+
+    }
+    void skipWhiteSpaces() {
+
+    }
+    Token parseStringLiteral() {
+
+    }
+    Token parseIdentifer() {
+        
+        //this we need the second char
+
+    }
+    // from charstream a new Token
+   inline bool isLetterDigitOrUnderScore(char ch) {
+       return true;
+   }
+   inline bool isLetter(char ch) {
+        return (ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z');
+    }
+
+   inline bool isDigit(char ch) {
+        return (ch >= '0' && ch <= '9');
+    }
+
+    inline bool isWhiteSpace(char ch) {
+        return (ch == ' ' || ch == '\n' || ch == '\t');
     }
 };
