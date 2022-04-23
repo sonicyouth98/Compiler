@@ -6,6 +6,7 @@
 
 #include <any>
 #include <vector>
+#include <map>
 
 enum class SymKind {Variable, Function, Class, Interface, Parameter, Prog};
 
@@ -68,4 +69,6 @@ public:
 
 
 };
+
+extern std::map<std::string, std::shared_ptr<FunctionSymbol>> built_ins;
 #endif
