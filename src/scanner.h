@@ -13,22 +13,35 @@ Seperator, Operator, Eof};
 //sperator
 
 enum class Seperator{
-    
+    OpenBracket = 0, //[
+    CloseBracket , //]
+    OpenParen , //(
+    CloseParen, //)
+    OpenBrace, //{
+    CloseBrace,  //}
+    Colon,  //:
+    SemiColon //;
 };
 
 
 enum class Op {
+    QuestionMark = 100,// ?
+    Ellipsis, //...
 
 };
+
+//this is bijiao operator
 
 enum class KeyWordKind {
 //this is mu language keyword
 };
 
-
+//this is overloadfunction in the scanner.cpp
 inline std::string toString(uint32_t obj) {
     return std::to_string(obj);
 }
+
+
 
 struct Token {
     TokenKind kind;
@@ -75,7 +88,7 @@ class Scanner {
 private:
     std::list<Token> token;
     CharStream& stream;
-
+    static std::unordered_map<std::string, KeyWordKind> keywordMap;
 public:
     Scanner(CharStream& stream) : stream(stream) {}
 
