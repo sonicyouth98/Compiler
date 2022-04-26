@@ -9,9 +9,7 @@ struct Position {
     uint32_t begin = 1;
     uint32_t end = 1;
 
-    Position(const Position& other) {
-
-    }
+    Position() {}
 
     Position(uint32_t line, uint32_t col, 
     uint32_t begin, uint32_t end) : line(line), col(col), begin(begin), end(end){}
@@ -20,7 +18,7 @@ struct Position {
         ", Pos: " + std::to_string(this->begin) + ")";
     }
 
-    Position(Position& other) {
+    Position(const Position& other) {
         this->begin = other.begin;
         this->end = other.end;
         this->line = other.line;

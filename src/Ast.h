@@ -10,7 +10,7 @@
 #include <any>
 #include <memory>
 #include <stdint.h>
-
+#include <sstream>
 //this is programming ast node
 
 class AstNode;
@@ -42,13 +42,53 @@ public:
     Position beginpos;
     Position endpos;
     bool isErrorNode {false};
-
+    AstNode(Position beginpos, Position endpos, bool isErrorNode) : beginpos(beginpos), endpos(endpos), isErrorNode(isErrorNode){}
 
     virtual std::any accept(AstVisitor& visitor, std::string additional) = 0;
 };
 
 class Statement : public AstNode {
 public:
-    Statement(Position beginpos, )
+    std::string name;
+    Statement(Position beginpos, Position endpos, bool isErroNode) : AstNode(beginpos, endpos, isErroNode) , name(name){}
+};
+
+class Decl : public AstNode {
+
+};
+
+class ErrorStmt : public AstNode {
+
+};
+
+class Expression : public AstNode {
+
+};
+
+class ErrorExp : public Expression {
+
+};
+
+class ExpressionStament : public Statement {
+ //this is add ; int Expression
+
+
+};
+
+class IntegerLiteral : public Expression {
+
+};
+
+
+
+class AstDumper : public AstVisitor {
+    std::stringstream ss;
+public:
+    std::any visit() override {
+        
+    }
+    std::string toString() {
+
+    }
 };
 #endif
